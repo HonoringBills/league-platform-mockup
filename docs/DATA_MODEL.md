@@ -24,6 +24,37 @@ The key design rule is that **organization rosters and league competitors are no
 
 A player can appear on an organization roster, a league roster, or both without duplicating the underlying person/account.
 
+### `player_rank_history`
+Stores rank / peak history used for eligibility and integrity reviews.
+- id
+- player_profile_id
+- game_title
+- season_label
+- rank
+- peak_rank
+- games_played
+- source
+- recorded_at
+
+### `player_integrity_reviews`
+Tracks sandbagging / smurfing / eligibility investigations.
+- id
+- player_profile_id
+- opened_by
+- reason
+- status
+- summary
+- decision
+- opened_at
+- closed_at
+
+### `player_integrity_review_notes`
+- review_id
+- author_id
+- note
+- evidence_url
+- created_at
+
 ## Organization side
 
 ### `org_teams`
@@ -136,7 +167,19 @@ Stores the submitted application before / during staff review.
 - screenshot_url
 
 ### `player_map_stats`
-Per-player, per-map stat records used to roll up season and career leaderboards.
+Per-player, per-map stat records used to roll up season and career leaderboards and power integrity reviews.
+Recommended fields include:
+- player_profile_id
+- map_id
+- kills
+- deaths
+- assists
+- score
+- spm
+- objective stats where applicable
+- source / import method
+- created_at
+- corrected_at
 
 ### `standings`
 Can be materialized or derived from approved match records.
@@ -195,13 +238,32 @@ Independent match history for each ladder.
 Permission bundles such as owner, org admin, league commissioner, verifier, stats staff and caster admin.
 
 ### `audit_log`
-Every sensitive staff action should record actor, target, action, before/after metadata and timestamp.
+Every sensitive staff action should record actor, target, action, before/after metadata and timestamp. Integrity reviews should be able to filter this log by player, team, match, stat correction and eligibility decision.
 
 ### `discipline`
 Suspensions, bans, restrictions, eligibility exceptions and notes.
 
 ### `disputes`
 Match / roster / stat dispute records with evidence and resolution.
+
+## Integrity / sandbagging review queries
+
+Because the production database is PostgreSQL, authorized owners can query the raw data directly in Supabase's SQL editor. The Player Integrity Review UI should surface common investigation views without requiring SQL, while preserving direct access for deeper analysis.
+
+Typical review data can include:
+- Performance by season
+- Performance by date range
+- K/D and SPM trend lines
+- Per-mode performance
+- Per-map performance
+- Games / maps played at a rank
+- Team changes and roster history
+- Rank / peak history
+- Eligibility decisions
+- Prior investigations
+- Stat corrections
+- Match evidence
+- Audit history
 
 ## Why this split matters
 
