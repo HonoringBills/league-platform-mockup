@@ -1,60 +1,82 @@
-# LeagueOS — Unbranded League Platform Mock-up
+# Unbranded Esports Org + League Platform Mock-up
 
-A neutral front-end mock-up for a competitive COD league/community platform. It is intentionally brand-agnostic so a client logo, colors, name, copy, Discord IDs and production database can be dropped in after approval.
+A combined website concept for an esports organization that also operates its own competitive league. The public experience is **organization-first** while league operations live inside a dedicated League hub on the same platform.
 
-## Included mock screens
+This repo is intentionally brand-neutral. Final organization name, league name, logos, colors, typography, copy, social links, Discord IDs and real data can be swapped in after approval.
 
-- Home / public landing page
-- League season + standings + schedule
-- Tournament engine concept
-- Dual 8s leaderboards (Main Discord / League Discord)
-- Teams + approved roster profiles
-- Player / team statistics leaderboard
-- Merch storefront integration concept
-- Team registration form + staff approval flow
-- Staff control center
-- Configurable veto lab
+## Public organization side
 
-## Features represented in the design
+- Org-first homepage and match center
+- Organization teams / rosters
+- Player and creator profiles
+- Org results and upcoming matches
+- News / content hub
+- Sponsors / partners
+- Merch storefront concept
+- About / ownership / staff
+- Accomplishments and history
+- Recruiting / applications path
 
-- Team registration and staff approval
+## Competitive league side
+
+- League overview and season controls
+- Team registration + staff approval
 - Player verification / eligibility
 - Roster management + roster locks
 - Match scheduling and reporting
-- Standings + playoffs
-- Tournament registration, check-in and brackets
-- Dual-community 8s + ELO
+- Standings and playoffs
+- Tournament brackets
+- Dual 8s leaderboards
+  - Main Org / Community Discord
+  - League Discord
+- Player / team statistics
+- Configurable BO3 / BO5 / BO7 veto system
+- HP-only / SnD-only / Standard formats
+- Configurable third mode by title
+- Disputes, suspensions and audit logging
+- Season archives / rollover
+- Optional scoreboard OCR path
+
+## Important architecture decision
+
+**Organization teams and league teams are separate entities.**
+
+An org-owned COD roster represents the brand. A team that registers to compete in the league is an independent competition entry. They can share player/account records when appropriate, but they should never be stored as the same kind of team.
+
+## Unified staff side
+
+One permissioned backend can manage:
+
+- Org rosters and player profiles
+- Org news / media / sponsors / merch links
+- League registrations and approvals
+- Verification and eligibility
+- Scheduling and match reports
+- 8s and ELO
+- Veto settings and map pools
 - Discord role / notification sync
-- BO3 / BO5 / BO7 veto presets
-- HP-only / SnD-only / Standard veto formats
-- Configurable third competitive game mode
-- Player/team/per-map stats model
-- Scoreboard upload / future OCR path
-- Disputes, suspensions and staff audit logging
-- Season archives / rollover concept
-- Shopify / Printify-style merch integration
+- Caster assignments
+- Disputes / discipline
+- Audit logs
 
-## Run locally
+## Merch direction
 
-```bash
-npm install
-npm run dev
-```
+Use the website for branded presentation and route production commerce through Shopify / Printify so checkout, card processing, taxes, shipping and fulfillment stay with the commerce provider.
 
-Open the local Vite URL shown in the terminal.
+## Run / preview
+
+`index.html` is self-contained and can be served directly by GitHub Pages.
+
+The production build can later move to React/Vite + Supabase/Postgres while preserving the same information architecture.
 
 ## Production direction
 
-This repository is currently **mock mode**: UI interactions use local placeholder data and do not write production data.
-
-Recommended production wiring:
-
-- React/Vite front end (current repo)
-- Supabase/Postgres for auth + league data
+- React/Vite front end
+- Supabase/Postgres for auth + data
 - Discord OAuth for player/staff identity
-- discord.js service for roles, notifications, vetoes and 8s workflows
-- Object storage for logos and scoreboard screenshots
-- Shopify/Printify checkout or embedded storefront for merch
+- discord.js service for roles, alerts, vetoes and 8s workflows
+- Object storage for logos, media and scoreboard screenshots
+- Shopify/Printify storefront integration
 - Optional OCR worker for scoreboard stat extraction
 
 See `docs/FEATURES.md`, `docs/DATA_MODEL.md`, and `docs/BRAND_SWAP.md`.
