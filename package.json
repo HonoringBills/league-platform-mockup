@@ -1,7 +1,8 @@
 {
-  "name": "league-platform-mockup",
+  "name": "org-league-platform-mockup",
   "private": true,
-  "version": "0.1.0",
+  "version": "0.2.0",
+  "description": "Unbranded esports organization + competitive league website mockup",
   "type": "module",
   "scripts": {
     "dev": "vite --host 0.0.0.0",
