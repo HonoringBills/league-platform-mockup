@@ -33,9 +33,31 @@ This repo is intentionally brand-neutral. Final organization name, league name, 
 - Configurable BO3 / BO5 / BO7 veto system
 - HP-only / SnD-only / Standard formats
 - Configurable third mode by title
+- Player Integrity Review for sandbagging / smurfing investigations
+- Direct PostgreSQL / Supabase SQL access for authorized owners
 - Disputes, suspensions and audit logging
 - Season archives / rollover
 - Optional scoreboard OCR path
+
+## Player Integrity Review
+
+The staff side includes a dedicated player investigation view designed for sandbagging, smurfing and eligibility accusations. Staff can inspect:
+
+- Current and historical rank / peak information
+- Season-by-season performance
+- Per-map stats and match history
+- K/D, SPM and W/L trends
+- Mode-specific performance
+- Team / roster history
+- Games or maps played at recorded ranks
+- Verification and eligibility history
+- Prior staff notes / decisions
+- Suspensions / restrictions
+- Scoreboard evidence
+- Stat corrections
+- Full audit history showing what changed, who changed it and when
+
+The production database is planned as PostgreSQL through Supabase. Authorized owners can also use the Supabase SQL editor to query the raw data directly for custom investigations and reports.
 
 ## Important architecture decision
 
@@ -51,6 +73,7 @@ One permissioned backend can manage:
 - Org news / media / sponsors / merch links
 - League registrations and approvals
 - Verification and eligibility
+- Player integrity / sandbagging reviews
 - Scheduling and match reports
 - 8s and ELO
 - Veto settings and map pools
@@ -58,6 +81,7 @@ One permissioned backend can manage:
 - Caster assignments
 - Disputes / discipline
 - Audit logs
+- Direct SQL access for authorized ownership / technical staff
 
 ## Merch direction
 
