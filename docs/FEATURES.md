@@ -136,6 +136,26 @@ Each can have:
 - Match history
 - Season / playoff splits
 
+### Player Integrity Review
+Built for sandbagging, smurfing and eligibility investigations.
+
+Staff can search a player and open a dedicated investigation view containing:
+- Current and historical rank / peak information
+- Season-by-season performance splits
+- Per-map stat history
+- Recent K/D, SPM and W/L trends
+- Mode-specific performance trends
+- Team and roster history
+- Games / maps played at each recorded level
+- Verification and eligibility history
+- Staff notes and prior review decisions
+- Suspensions / restrictions
+- Linked match evidence / scoreboard uploads
+- Stat corrections and edits
+- Full audit trail showing what changed, who changed it and when
+
+The investigation UI is backed by the same PostgreSQL data available through direct SQL access, so authorized owners can run their own custom queries for deeper analysis.
+
 ## 3. Discord integration
 
 - Discord OAuth login
@@ -164,6 +184,7 @@ Each can have:
 - Pending roster changes
 - Verification requests
 - Eligibility reviews
+- Player Integrity Reviews / sandbagging investigations
 - Scheduling issues
 - Unreported matches
 - Disputes
@@ -174,6 +195,7 @@ Each can have:
 - Role-based staff permissions
 - Audit history
 - Search by player / team
+- Direct database / SQL access for authorized owners
 - Discord integration status
 - Site settings
 - Branding settings
