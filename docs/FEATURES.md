@@ -52,7 +52,9 @@
 - Team registration form
 - Captain information
 - Full roster + substitutes
-- Discord IDs / Activision IDs
+- Discord OAuth identity linking
+- Automatically captured immutable Discord user ID
+- Activision IDs / competitive IDs
 - Staff approve / reject / request changes
 - Player verification
 - Eligibility rules and notes
@@ -156,13 +158,49 @@ Staff can search a player and open a dedicated investigation view containing:
 
 The investigation UI is backed by the same PostgreSQL data available through direct SQL access, so authorized owners can run their own custom queries for deeper analysis.
 
-## 3. Discord integration
+## 3. Discord identity + automation
 
-- Discord OAuth login
-- Verified Player role
-- Team Captain role
-- Free Agent role
-- League Staff / Caster roles
+Discord should be the primary external identity used to connect the website, players and bot actions.
+
+### Identity linking
+- Register / sign in with Discord OAuth
+- Capture the real Discord user ID automatically instead of relying on manually typed IDs
+- Store Discord ID against the website user / player profile
+- Verify guild membership where required
+- Use the same identity across registration, roster transactions, 8s, verification and integrity reviews
+
+### Automatic role sync
+Configurable role bindings can map website state to Discord roles, for example:
+- Verified Player
+- Team Captain
+- Active League Player
+- Free Agent
+- Org Player / Creator
+- League Staff / Caster
+- Suspended / Restricted if the league wants a visible discipline role
+- Champion / award roles if desired
+
+### Transaction-driven bot actions
+Website approvals should create Discord actions automatically. Examples:
+- Team approved → add captain + active player roles to approved roster
+- Player added to roster → remove Free Agent role and add Active League Player / team role
+- Player dropped → remove team role and optionally restore Free Agent role
+- Captain changed → move Team Captain role from old captain to new captain
+- Player verified → add Verified Player role
+- Suspension applied → remove competition roles / apply configured restriction role
+- Suspension expired → restore eligible roles
+- Tournament registration approved → add event role
+- 8s queue / ladder changes → sync any configured 8s roles
+
+### Reliability + logging
+- Bot actions should be queued from committed database transactions rather than being the source of truth
+- Each role sync action records pending / completed / failed status
+- Failed bot actions can be retried without duplicating successful actions
+- Every automated role add / remove is written to the audit log
+- Staff dashboard shows Discord sync failures and allows manual retry
+- Website data remains authoritative if Discord is temporarily unavailable
+
+### Other Discord integrations
 - Match reminders
 - Registration confirmations
 - Roster update notifications
@@ -197,6 +235,9 @@ The investigation UI is backed by the same PostgreSQL data available through dir
 - Search by player / team
 - Direct database / SQL access for authorized owners
 - Discord integration status
+- Discord role mapping configuration
+- Failed / pending Discord transaction queue
+- Manual Discord sync / retry controls
 - Site settings
 - Branding settings
 
