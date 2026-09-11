@@ -8,9 +8,12 @@ The key design rule is that **organization rosters and league competitors are no
 - id
 - email
 - discord_user_id
+- discord_username
+- discord_avatar_url
 - display_name
-- avatar_url
 - created_at
+
+`discord_user_id` is the immutable external identity captured through Discord OAuth. The internal database UUID remains the primary key.
 
 ### `player_profiles`
 - id
@@ -23,6 +26,40 @@ The key design rule is that **organization rosters and league competitors are no
 - eligibility_notes
 
 A player can appear on an organization roster, a league roster, or both without duplicating the underlying person/account.
+
+### `discord_guild_memberships`
+Tracks which connected Discord server(s) the user belongs to.
+- id
+- user_id
+- guild_id
+- first_seen_at
+- last_verified_at
+- active
+
+### `discord_role_bindings`
+Configurable mapping between website state and Discord roles.
+- id
+- guild_id
+- binding_key (`verified_player`, `team_captain`, `active_player`, `free_agent`, `org_player`, `caster`, etc.)
+- role_id
+- enabled
+
+### `discord_sync_jobs`
+Reliable queue of bot actions generated from committed website/database transactions.
+- id
+- user_id
+- guild_id
+- role_id
+- action (`add_role`, `remove_role`, `sync_member`)
+- source_type (`roster_transaction`, `verification`, `discipline`, `team_approval`, `eight_transaction`, etc.)
+- source_id
+- status (`pending`, `processing`, `completed`, `failed`)
+- attempt_count
+- last_error
+- created_at
+- completed_at
+
+A deterministic source/action key should make jobs idempotent so retries do not duplicate successful changes.
 
 ### `player_rank_history`
 Stores rank / peak history used for eligibility and integrity reviews.
@@ -137,14 +174,21 @@ Independent teams registered to compete in the league.
 - approved_at
 
 ### `team_registrations`
-Stores the submitted application before / during staff review.
+Stores the submitted application before / during staff review. Registration uses linked Discord identities rather than trusting manually-entered Discord IDs.
 
 ### `roster_transactions`
-- add / drop / role change
+- id
+- league_team_id
+- player_profile_id
+- transaction_type (`add`, `drop`, `role_change`, `captain_change`)
 - submitted_by
 - submitted_at
 - approval_status
+- approved_by
+- approved_at
 - staff_note
+
+Approved roster transactions should enqueue the required Discord role changes in `discord_sync_jobs` inside the same database transaction or through a transactional outbox pattern.
 
 ### `matches`
 - season_id / tournament_id
@@ -238,13 +282,28 @@ Independent match history for each ladder.
 Permission bundles such as owner, org admin, league commissioner, verifier, stats staff and caster admin.
 
 ### `audit_log`
-Every sensitive staff action should record actor, target, action, before/after metadata and timestamp. Integrity reviews should be able to filter this log by player, team, match, stat correction and eligibility decision.
+Every sensitive staff action should record actor, target, action, before/after metadata and timestamp. Integrity reviews should be able to filter this log by player, team, match, stat correction and eligibility decision. Automated Discord role actions should also write success/failure records here.
 
 ### `discipline`
 Suspensions, bans, restrictions, eligibility exceptions and notes.
 
+Discipline changes can enqueue Discord role removals/additions while the website/database remains authoritative.
+
 ### `disputes`
 Match / roster / stat dispute records with evidence and resolution.
+
+## Example Discord transaction lifecycle
+
+1. Captain submits a roster add for a Discord-linked player.
+2. Staff approves the transaction.
+3. PostgreSQL updates the roster record.
+4. The same committed workflow creates Discord sync jobs.
+5. The bot removes Free Agent if configured.
+6. The bot adds Active League Player / team-specific roles if configured.
+7. Success or failure is logged.
+8. A failed role action can be retried without reversing or duplicating the roster transaction.
+
+This same pattern can be used for captain changes, verification, suspension, reinstatement, team approval, tournament roles and 8s roles.
 
 ## Integrity / sandbagging review queries
 
