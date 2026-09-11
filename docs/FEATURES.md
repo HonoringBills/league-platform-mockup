@@ -1,90 +1,191 @@
-# Feature Map
+# Feature Map — Organization + League
 
-## Public site
-- Home / news / announcements
-- About + socials
-- Teams and approved rosters
-- Player profiles
-- League standings / schedule / results
-- Tournament pages / brackets
-- Stats leaderboards
-- 8s leaderboards
-- Merch
-- Rules / policies / season archive
+## 1. Organization website
 
-## Registration + verification
-- Team registration
-- Individual player registration
-- Captain designation
-- Starter/sub roles
-- Discord + Activision identifiers
-- Rank / eligibility submission
+### Homepage
+- Org-first hero and identity
+- Featured match / next match
+- Recent results
+- Featured org teams
+- Latest news / announcements
+- Sponsors / partners
+- Featured merch
+- League promo / entry point
+
+### Organization teams
+- Separate org-owned rosters by game / division
+- Starters, substitutes and coaches
+- Player profile cards
+- Competitive records
+- Upcoming and past matches
+- Accomplishments
+- Creator / content roster support
+
+### Content
+- News posts
+- Roster announcements
+- Match recaps
+- Creator spotlights
+- Partner announcements
+- League news surfaced to the org community
+- Social / stream embeds later
+
+### Merch
+- Branded storefront presentation
+- Shopify / Printify integration
+- Product collections
+- Jerseys / gamertag customization path
+- Sponsor campaigns
+
+### Organization admin
+- Org roster editor
+- Player / creator profiles
+- News publishing
+- Sponsor placement
+- Merch links
+- Staff / ownership profiles
+- Match result publishing
+
+## 2. Competitive league
+
+### Registration + eligibility
+- Team registration form
+- Captain information
+- Full roster + substitutes
+- Discord IDs / Activision IDs
 - Staff approve / reject / request changes
+- Player verification
+- Eligibility rules and notes
+- Suspensions / restrictions
 - Free Agent registration
-- Registration windows and capacity limits
 
-## Rosters
-- Add/drop requests
-- Staff approval queue
-- Roster locks
-- Roster history
-- Captain transfer
-- Eligibility / suspension validation before approval
-
-## Matches
+### Season operations
+- Registration windows
+- Divisions / groups
+- Active season selection
+- Roster lock dates
+- Schedule generation / management
 - Team A / Team B scheduling workflow
-- Confirmed match times
-- Automated Discord reminders
+- Match reminders
+- Forfeits
 - Match check-in
-- Score / map reporting
-- Screenshot evidence
+- Season rollover / archive
+
+### Match reporting
+- Series score
+- Per-map score
+- Scoreboard evidence uploads
 - Opponent confirmation
-- Staff correction / forfeit
-- Match dispute flow
+- Staff correction
+- Dispute workflow
+- Optional CSV imports
+- Optional scoreboard OCR
 
-## Competition
-- Multiple seasons
-- Groups / divisions
-- Standings + configurable tie-breakers
+### Standings + playoffs
+- Series W/L
+- Map W/L
+- Differential
+- Tiebreakers
 - Playoff qualification
-- Single / double elimination tournament concepts
-- BO3 / BO5 / BO7
-- Configurable veto presets
-- HP only / SnD only / Standard
-- Configurable third mode by title
-- Map pool configuration
-- Veto resume/recovery
+- Bracket seeding
+- Championship history
 
-## 8s
-- Main Discord leaderboard
-- League Discord leaderboard
-- Separate ELO pools
+### Tournaments
+- Tournament registration
+- Check-in
+- Single / double elimination path
+- Pool play path
+- Brackets
+- Match reporting
+- Veto integration
+- Discord notifications
+
+### Dual 8s
+Two independent ladders:
+1. Main Org / Community Discord 8s
+2. League Discord 8s
+
+Each can have:
+- Independent ELO
 - Queue
-- Auto team generation
-- Match room creation
-- Result confirmation
-- Seasonal reset
+- Leaderboard
+- Season reset
+- Match history
+- Discord roles / channels
 
-## Stats
-- Team + player season stats
-- Per-map rows
-- Per-mode aggregation
-- K/D, kills, deaths, score/SPM and mode-specific stats
-- MVP tracking
-- Awards
-- Manual stat entry
-- CSV import
-- Future OCR scoreboard upload
+### Veto system
+- BO3 / BO5 / BO7
+- HP only
+- SnD only
+- Standard competitive rotation
+- Configurable third mode by title
+- Configurable map pool
+- Ban / pick flow
+- Resume / recovery
+- Staff override
 
-## Staff
-- Pending team registrations
-- Roster change queue
-- Verification queue
-- Match report queue
-- Dispute queue
-- Suspensions / bans / restrictions
-- Staff role permissions
-- Audit log
-- Discord sync health
-- Season activation / rollover
-- Registration open / close
+### Statistics
+- Player K/D
+- Kills / deaths
+- SPM
+- Maps played
+- W/L
+- Mode-specific stats
+- Team stats
+- MVPs / awards
+- Match history
+- Season / playoff splits
+
+## 3. Discord integration
+
+- Discord OAuth login
+- Verified Player role
+- Team Captain role
+- Free Agent role
+- League Staff / Caster roles
+- Match reminders
+- Registration confirmations
+- Roster update notifications
+- Veto channels / sessions
+- 8s queue / result sync
+- Announcement publishing
+- Server / system logs
+
+## 4. Unified staff dashboard
+
+### Org queue
+- Draft posts
+- Org roster updates
+- Match results
+- Sponsor / merch content
+
+### League queue
+- Pending teams
+- Pending roster changes
+- Verification requests
+- Eligibility reviews
+- Scheduling issues
+- Unreported matches
+- Disputes
+- Suspensions
+- Stat corrections
+
+### Shared controls
+- Role-based staff permissions
+- Audit history
+- Search by player / team
+- Discord integration status
+- Site settings
+- Branding settings
+
+## 5. Future extensions
+
+- Caster Central
+- Referral system
+- Automated scorecard / MVP graphics
+- Stream embeds
+- Recruitment forms
+- Sponsor dashboards
+- Player awards
+- Push / site notifications
+- Game-by-game ruleset presets
