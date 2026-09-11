@@ -30,6 +30,7 @@ const commandGroups = {
   ],
   staff: [
     '/staff review',
+    '/investigate player',
     '/caster',
   ],
 };
@@ -42,6 +43,8 @@ const plannedEvents = [
   'match.time.accepted',
   'match.reminder.due',
   'match.report.submitted',
+  'player.integrity_review.opened',
+  'player.integrity_review.closed',
   'veto.session.started',
   'eight.queue.updated',
   'org.news.published',
